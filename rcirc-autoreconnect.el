@@ -23,6 +23,7 @@
 ;;; Code:
 
 (eval-when-compile (require 'cl))
+
 (require 'rcirc)
 (defgroup rcirc-autoreconnect nil
   "Autoreconnect feature for RCIRC"
@@ -51,7 +52,7 @@
     (process-put proc 'encryption encryption)
     proc))
 
-(defun rcirc-toggle-autoreconnect (prefix)
+(defun rcirc-toggle-autoreconnect (&optional prefix)
   "Toggle autoreconnect for RCIRC.
 
 If PREFIX is negative disable it, if PREFIX is positive enable
@@ -67,11 +68,11 @@ it."
                                         "enabled"
                                       "disabled"))
   (cond (rcirc-autoreconnect
-         (cl-pushnew #'rcirc-autoreconnect-sentinel rcirc-sentinel-functions)
+         (pushnew #'rcirc-autoreconnect-sentinel rcirc-sentinel-functions)
          (ad-activate #'rcirc-connect))
         (t
          (setf rcirc-sentinel-functions
-               (cl-delete #'rcirc-autoreconnect-sentinel rcirc-sentinel-functions))
+               (delete #'rcirc-autoreconnect-sentinel rcirc-sentinel-functions))
          (ad-deactivate #'rcirc-connect))))
 
 (defun rcirc-autoreconnect-sentinel (proc event)
