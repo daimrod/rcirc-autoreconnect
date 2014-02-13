@@ -1,0 +1,4 @@
+* RCIRC Autoreconnect
+
+Small hack to reconnect automatically to an IRC server when the remote
+has closed the connection.
