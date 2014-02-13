@@ -68,11 +68,11 @@ it."
                                         "enabled"
                                       "disabled"))
   (cond (rcirc-autoreconnect
-         (pushnew #'rcirc-autoreconnect-sentinel rcirc-sentinel-functions)
+         (pushnew #'rcirc-autoreconnect-sentinel rcirc-sentinel-hooks)
          (ad-activate #'rcirc-connect))
         (t
-         (setf rcirc-sentinel-functions
-               (delete #'rcirc-autoreconnect-sentinel rcirc-sentinel-functions))
+         (setf rcirc-sentinel-hooks
+               (delete #'rcirc-autoreconnect-sentinel rcirc-sentinel-hooks))
          (ad-deactivate #'rcirc-connect))))
 
 (defun rcirc-autoreconnect-sentinel (proc event)
