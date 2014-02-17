@@ -76,7 +76,7 @@ it."
          (ad-deactivate #'rcirc-connect))))
 
 (defun rcirc-autoreconnect-sentinel (proc event)
-  (when (and (string-match-p event "connection broken by remote peer")
+  (when (and (not (eq 'open (process-status proc)))
              (null (process-get proc 'timer)))
     (let ((timer (run-at-time 1 rcirc-autoreconnect-delay
                               (lambda (proc)
